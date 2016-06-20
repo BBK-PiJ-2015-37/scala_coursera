@@ -127,5 +127,15 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("diff contains elements not in both composing sets") {
+    new TestSets {
+      val d1 = diff(s2, s3)
+      val d2 = diff(s2, s4)
+      assert(contains(d1, 2), "Diff of 2 & 3 does not contain 2")
+      assert(!contains(d1, 3), "Diff of 2 & 3 unexpectedly contains 3")
+      assert(!contains(d2, 2), "Diff of 2 & 4 unexpectedly contains 2")
+    }
+  }
+
 
 }
