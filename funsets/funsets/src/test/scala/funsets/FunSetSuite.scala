@@ -183,5 +183,18 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("map function") {
+    new TestSets {
+      val f1 = union(s1, s3) // 1,3
+      val f2 = union(s2, s4) // 2,2
+      val f3 = union(s5, s8) // -4, -876
+      val f4 = union(s6, s7) // 999, 421
+      val f5 = union(f1, f4) // all odd
+      val f6 = union(f2, f3) // all even
+      assert(contains(map(f6, x => x / 2), -438))
+      assert(contains(map(f4, x => x + 1), 1000))
+    }
+  }
+
 
 }
