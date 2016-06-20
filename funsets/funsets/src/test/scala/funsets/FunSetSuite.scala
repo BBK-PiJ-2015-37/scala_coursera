@@ -77,6 +77,7 @@ class FunSetSuite extends FunSuite {
     val s1 = singletonSet(1)
     val s2 = singletonSet(2)
     val s3 = singletonSet(3)
+    val s4 = singletonSet(2)
   }
 
   /**
@@ -86,7 +87,7 @@ class FunSetSuite extends FunSuite {
    * Once you finish your implementation of "singletonSet", exchange the
    * function "ignore" by "test".
    */
-  test("singletonSet(1) contains 1") {
+  test("singletonSets contain correct input") {
 
     /**
      * We create a new instance of the "TestSets" trait, this gives us access
@@ -97,7 +98,13 @@ class FunSetSuite extends FunSuite {
        * The string argument of "assert" is a message that is printed in case
        * the test fails. This helps identifying which assertion failed.
        */
-      assert(contains(s1, 1), "Singleton")
+      assert(contains(s1, 1), "s1 did not contain 1")
+      assert(contains(s2, 2), "s2 did not contain 2")
+      assert(contains(s3, 3), "s3 did not contain 3")
+      assert(!contains(s1, 2), "s1 contained unexpected 2")
+      assert(!contains(s2, -2), "s2 contained unexpected -2")
+      assert(!contains(s3, 75), "s3 contained unexpected 75")
+
     }
   }
 
@@ -107,6 +114,16 @@ class FunSetSuite extends FunSuite {
       assert(contains(s, 1), "Union 1")
       assert(contains(s, 2), "Union 2")
       assert(!contains(s, 3), "Union 3")
+    }
+  }
+
+  test("intersect contains elements common to composing sets") {
+    new TestSets {
+      val i1 = intersect(s2, s3)
+      val i2 = intersect(s2, s4)
+      assert(!contains(i1, 2), "Intersect of 2 & 3 contains unexpected 2")
+      assert(!contains(i1, 3), "Intersect of 2 & 3 contains unexpected 3")
+      assert(contains(i2, 2), "Intersect of 2 & 4 does not contain 2")
     }
   }
 
