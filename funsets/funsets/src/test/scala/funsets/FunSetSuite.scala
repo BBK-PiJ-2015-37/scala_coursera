@@ -78,6 +78,7 @@ class FunSetSuite extends FunSuite {
     val s2 = singletonSet(2)
     val s3 = singletonSet(3)
     val s4 = singletonSet(2)
+    val s5 = singletonSet(4)
   }
 
   /**
@@ -134,6 +135,21 @@ class FunSetSuite extends FunSuite {
       assert(contains(d1, 2), "Diff of 2 & 3 does not contain 2")
       assert(!contains(d1, 3), "Diff of 2 & 3 unexpectedly contains 3")
       assert(!contains(d2, 2), "Diff of 2 & 4 unexpectedly contains 2")
+    }
+  }
+
+  test("filter correctly identifies elements of set that satisfy predicate") {
+    new TestSets {
+      val f1 = union(s1, s2)
+      val f2 = union(s3, s5)
+      val f3 = union(f1, f2)
+      val filter1 = filter(f3, x => x % 2 == 0)
+      val filter2 = filter(f3, x => x < 4)
+      assert(contains(filter1, 2), "Set of even numbers does not contain 2")
+      assert(contains(filter1, 4), "Set of even numbers does not contain 4")
+      assert(!contains(filter1, 1), "Set of even numbers unexpectedly contains 1")
+      assert(!contains(filter2, 4), "Set of numbers less than 4 unexpectedly contains 4")
+      assert(contains(filter2, 1), "Set of numbers less than 4 does not contain 1")
     }
   }
 
